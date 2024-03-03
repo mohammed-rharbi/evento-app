@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.background-image {
+    background-image: url('/public/images/dark-room-with-light-background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; 
+}
