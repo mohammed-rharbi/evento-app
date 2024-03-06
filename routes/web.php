@@ -1,8 +1,13 @@
 <?php
 
-use App\Http\Controllers\dashboardCntroller;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CategoryController;
+use App\Models\event;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\dashboardCntroller;
+use App\Http\Controllers\memberCntroller;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,17 +26,30 @@ Route::get('/', function () {
 
 Route::get('/dashboard', dashboardCntroller::class)->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/admin/dashboard', function () {
-    return view('admin.dashboard');
-})->middleware(['auth', 'role:admin'])->name('admin.dashboard');
 
 Route::get('/organizer/dashboard', function () {
     return view('organizer.dashboard');
 })->middleware(['auth', 'role:organizer'])->name('organizer.dashboard');
 
-Route::get('/member/dashboard', function () {
-    return view('member.dashboard');
-})->middleware(['auth', 'role:member'])->name('member.dashboard');
+
+
+
+
+Route::resource('member', memberCntroller::class )->middleware(['auth', 'role:member']);
+
+Route::resource('events', EventController::class)->middleware(['auth', 'role:organizer']);
+
+Route::resource('admin', AdminController::class)->middleware(['auth', 'role:admin']);
+
+Route::resource('category', CategoryController::class)->middleware(['auth', 'role:admin']);
+
+
+Route::put('/event/{id}/validate', [EventController::class, 'validateEvent'])->name('event.validate')->middleware(['auth', 'role:admin']);
+
+Route::post('/events/{event}/book', [EventController::class, 'book'])->name('events.book')->middleware(['auth', 'role:member']);
+
+
+
 
 
 Route::middleware('auth')->group(function () {

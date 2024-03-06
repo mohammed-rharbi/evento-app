@@ -16,8 +16,8 @@ class UsersTableSeeder extends Seeder
     {
 // Create some sample users
 User::create([
-    'name' => 'mohammed',
-    'email' => 'moha@gmail.com',
+    'name' => 'admin',
+    'email' => 'admin@gmail.com',
     'password' => Hash::make('20012001'),
     'role' => 'admin',
 ]);
@@ -30,8 +30,8 @@ User::create([
 ]);
 
 User::create([
-    'name' => 'john',
-    'email' => 'john@gmail.com',
+    'name' => 'mohammed',
+    'email' => 'moha@gmail.com',
     'password' => Hash::make('20012001'),
     'role' => 'organizer',
 ]);    }

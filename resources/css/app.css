@@ -3,7 +3,15 @@
 @tailwind utilities;
 
 
-.background-image {
+.home {
+    background-image: url('/public/images/dark-room-with-light-background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; 
+}
+
+
+.tnakt{
     background-image: url('/public/images/dark-room-with-light-background.jpg');
     background-size: cover;
     background-position: center;

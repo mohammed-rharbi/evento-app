@@ -9,14 +9,33 @@ class event extends Model
 {
     use HasFactory;
 
+    protected $guarded = null ;
+
+    protected $fillable = [
+        'title',
+        'description',
+        'start_time',
+        'end_time',
+        'location',
+        'categories_id',
+        'numberOfPlacesAvailable',
+        'validated',
+    ];
+    
+
 
     public function organizer(){
 
         return $this->belongsTo(User::class , 'organizer_id');
     }
 
-    public function category(){
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'categories_id');
+    }
 
-        return $this->belongsTo(category::class);
+    public function reservations()
+    {
+        return $this->hasMany(EventReservation::class);
     }
 }

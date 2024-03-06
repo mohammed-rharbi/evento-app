@@ -14,7 +14,7 @@ class dashboardCntroller extends Controller
         
         switch (auth()->user()->role) {
             case 'admin':
-                return redirect()->route('admin.dashboard');
+                return redirect()->route('admin.index');
                 break;
 
             case 'organizer':
@@ -22,7 +22,7 @@ class dashboardCntroller extends Controller
                 break;
 
             case 'member':
-                return redirect()->route('member.dashboard');
+                return redirect()->route('member.index');
                 break;
             
             default:

@@ -13,13 +13,12 @@ return new class extends Migration
     {
         Schema::create('event_reservations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('events_id')->constrained();
+            $table->foreignId('event_id')->constrained('events');
             $table->foreignId('user_id')->constrained('users');
-            $table->string('reservationStatus');
+            $table->boolean('reservationStatus')->default(0);
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      */

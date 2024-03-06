@@ -17,9 +17,11 @@ return new class extends Migration
             $table->foreignId('categories_id')->constrained();
             $table->string('title');
             $table->text('description');
-            $table->dateTime('date');
+            $table->dateTime('start_time'); // Changed to dateTime
+            $table->dateTime('end_time');
             $table->string('location');
             $table->integer('numberOfPlacesAvailable');
+            $table->boolean('validated')->default(0);
             $table->timestamps();
         });
     }
