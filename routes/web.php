@@ -55,6 +55,8 @@ Route::GET('event', [EventController::class, 'show_unvalidated'])->name('event.s
 
 
 Route::GET('admins', [AdminController::class, 'getAllusers'])->name('admins.getAllusers');
+Route::GET('resrvations', [AdminController::class, 'getResrevtion'])->name('resrvations.getResrevtion');
+
 Route::post('/reserv/{event}/book', [EventController::class, 'book'])
 ->name('reserv.book')->middleware(['auth', 'role:member']);
 

@@ -14,11 +14,11 @@ class memberCntroller extends Controller
      */
     public function index()
     {
-
+        $latestEvents = event::where('validated',1)->latest()->limit(1)->get();
         $Category = category::all(); 
         $events = event::where('validated', 1)->paginate(6);
 
-        return view('Evento',compact('events'));
+        return view('Evento',compact('events','latestEvents'));
     }
 
     /**

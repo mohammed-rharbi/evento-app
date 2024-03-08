@@ -174,10 +174,10 @@ public function confirm($id)
 
 public function book(Request $request, Event $event)
 {
+    
     if ($event->numberOfPlacesAvailable <= 0) {
         return redirect()->back()->with('error', 'Sorry, there are no available seats for this event.');
     }
-
     $reservation = new EventReservation();
     $reservation->event_id = $event->id;
     $reservation->user_id = auth()->id();

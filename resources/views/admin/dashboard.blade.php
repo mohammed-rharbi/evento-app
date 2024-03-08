@@ -34,6 +34,12 @@
                         <span class="ml-2">Validated Events</span>
                     </li>
                 </a>
+                <a href="{{ route('resrvations.getResrevtion') }}">
+                    <li class="p-4 hover:bg-gray-700 flex items-center">
+                        📅<!-- Validated Events Icon -->
+                        <span class="ml-2">All Resrvations</span>
+                    </li>
+                </a>
             </ul>
         </div>
 
@@ -57,6 +63,11 @@
                                     <p class="text-3xl font-bold">{{ $totalOrganizers }}</p>
                                 </div>
 
+                                <div class="col-span-1  bg-gray-100 dark:bg-gray-500 rounded-md p-4 text-center">
+                                    {{-- <h3 class="text-xl font-semibold mb-2">Total Resrvations</h3>
+                                    <p class="text-3xl font-bold">{{ $totalResrvations }}</p> --}}
+                                </div>
+
                                 <div class="col-span-2 bg-green-100 dark:bg-green-700 rounded-md p-4 text-center">
                                     <h3 class="text-xl font-semibold mb-2">Total Categories</h3>
                                     <p class="text-3xl font-bold">{{ $totalCategories }}</p>
@@ -66,9 +77,16 @@
                                     <h3 class="text-xl font-semibold mb-2">Total Events</h3>
                                     <p class="text-3xl font-bold">{{ $totalEvents }}</p>
                                 </div>
+
+                                <div class="col-span-1  bg-yellow-100 dark:bg-pink-700 rounded-md p-4 text-center">
+                                    <h3 class="text-xl font-semibold mb-2">Total Resrvations</h3>
+                                    <p class="text-3xl font-bold">{{ $totalResrvations }}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
+
+
                     
 
                     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">

@@ -34,6 +34,12 @@
                         <span class="ml-2">Validated Events</span>
                     </li>
                 </a>
+                <a href="{{ route('resrvations.getResrevtion') }}">
+                    <li class="p-4 hover:bg-gray-700 flex items-center">
+                        📅<!-- Validated Events Icon -->
+                        <span class="ml-2">All Resrvations</span>
+                    </li>
+                </a>
             </ul>
         </div>
         <!-- Main Content -->

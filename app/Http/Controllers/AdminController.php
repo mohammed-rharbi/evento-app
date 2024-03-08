@@ -8,6 +8,7 @@ use App\Models\users;
 use App\Models\category;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
+use App\Models\EventReservation;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class AdminController extends Controller
@@ -17,6 +18,7 @@ class AdminController extends Controller
      */
     public function index()
     {
+        $totalResrvations = EventReservation::count();
         $totalEvents = event::count();
         $totalCategories = category::count();
         $totalMembers = User::where('role', 'member')->count();
@@ -25,7 +27,7 @@ class AdminController extends Controller
         $events = Event::where('validated', 0)->get();
     
         return view('admin.dashboard', compact('events',  'categories'
-        ,'totalCategories','totalEvents' ,'totalMembers','totalOrganizers'));
+        ,'totalCategories','totalEvents' ,'totalMembers','totalOrganizers','totalResrvations'));
     }
 
 
@@ -44,10 +46,7 @@ class AdminController extends Controller
         //
     }
 
-    public function banned(): View
-    {
-        return view('statistic.banned'); // Return the banned message view
-    }
+
 
 
     /**
@@ -87,9 +86,22 @@ class AdminController extends Controller
 //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    public function getResrevtion(){
+
+        $resrtvations = EventReservation::all();
+
+        return view('admin.Resrvations',compact('resrtvations'));
+
+    }
+
+
+
+    public function banned(): View
+    {
+        return view('statistic.banned'); // Return the banned message view
+    }
+
+
     public function ban($id)
     {
         $user = User::findOrFail($id);

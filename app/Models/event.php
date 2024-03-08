@@ -20,6 +20,7 @@ class event extends Model
         'categories_id',
         'numberOfPlacesAvailable',
         'validated',
+        'autoaccept ',
     ];
     
 

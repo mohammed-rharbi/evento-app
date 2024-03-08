@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('location');
             $table->integer('numberOfPlacesAvailable');
             $table->boolean('validated')->default(0);
+            $table->boolean('autoaccept')->default(0);
             $table->timestamps();
         });
     }

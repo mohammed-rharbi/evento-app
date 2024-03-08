@@ -50,7 +50,7 @@
                     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                         <!-- Table -->
                         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                            <h2 class="text-xl text-white font-semibold m-5">All Users 👥</h2>
+                            <h2 class="text-xl text-white font-semibold m-5">All Resrvations 📅</h2>
 
                             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -59,49 +59,31 @@
                                             Id
                                         </th>
                                         <th scope="col" class="px-6 py-3">
-                                            Name
+                                            Event
                                         </th>
                                         <th scope="col" class="px-6 py-3">
-                                           Emaile
+                                            User
                                         </th>
                                         <th scope="col" class="px-6 py-3">
-                                            Role
-                                        </th>
-                                        <th scope="col" class="px-6 py-3">
-                                            Action
+                                            reservationStatus
                                         </th>
                                     </tr>
                                 </thead>
                              
                                 <tbody>
-                                    @foreach($users as $user)
+                                    @foreach($resrtvations as $resrtvation)
                                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            {{$user->id}}
+                                            {{$resrtvation->id}}
                                         </th>
                                         <td class="px-6 py-4">
-                                            {{$user->name}}
+                                            {{$resrtvation->event->title;}}
                                         </td>
                                         <td class="px-6 py-4">
-                                            {{ $user->email}}
+                                            {{ $resrtvation->user->name}}
                                         </td>
                                         <td class="px-6 py-4">
-                                            {{ $user->role}}
-                                        </td>
-                                        <td>
-                                            @if($user->banned)
-                                                <form id="unbanForm{{ $user->id }}" action="{{ route('ban.unban', $user->id) }}" method="POST">
-                                                    @csrf
-                                                    @method('PUT')
-                                                    <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded unbanButton">✨ Unban</button>
-                                                </form>
-                                            @else
-                                                <form id="banForm{{ $user->id }}" action="{{ route('ban.ban', $user->id) }}" method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded banButton">☠ Ban</button>
-                                                </form>
-                                            @endif
+                                            {{ $resrtvation->reservationStatus}}
                                         </td>
                                     </tr>
                                     @endforeach
