@@ -2,23 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\category;
+use App\Models\user;
 use App\Models\event;
-use App\Models\users;
+use App\Models\category;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class memberCntroller extends Controller
+class organizerController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
+        $totalEvents = event::count();
+        $totalMembers = User::where('role', 'member')->count();
+        $totalCategories = category::count();    
+        $organizer = auth()->user();
+        $totalEvents = event::count();
+        $events = $organizer->event; 
 
-        $Category = category::all(); 
-        $events = event::where('validated', 1)->paginate(6);
-
-        return view('Evento',compact('events'));
+        return view('organizer.index', compact('events','totalEvents','totalMembers','totalCategories'));
     }
 
     /**
@@ -40,7 +44,7 @@ class memberCntroller extends Controller
     /**
      * Display the specified resource.
      */
-    public function show()
+    public function show(user $user)
     {
         //
     }
@@ -48,7 +52,7 @@ class memberCntroller extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit()
+    public function edit(user $user)
     {
         //
     }
@@ -56,7 +60,7 @@ class memberCntroller extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, )
+    public function update(Request $request, user $user)
     {
         //
     }
@@ -64,7 +68,7 @@ class memberCntroller extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy()
+    public function destroy(user $user)
     {
         //
     }

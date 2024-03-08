@@ -6,7 +6,10 @@ use Carbon\Carbon;
 use App\Models\event;
 use App\Models\category;
 use Illuminate\Http\Request;
+use BaconQrCode\Encoder\QrCode;
 use App\Models\EventReservation;
+use BaconQrCode\Renderer\Image\Png;
+use PHPUnit\Runner\Baseline\Writer;
 use Illuminate\Support\Facades\Auth;
 
 class EventController extends Controller
@@ -31,9 +34,22 @@ class EventController extends Controller
    /**
  * Show the form for creating a new resource.
  */
+
+ public function show_unvalidated()
+ {
+
+    $category = Category::all();
+     $events = event::where('validated',1)->get(); 
+
+     return view('admin.validatedEvents', compact('events'));
+
+ }
+
+
+
 public function create()
 {
-    $categories = Category::all(); // Make sure to import the Category model
+    $categories = Category::all();
     return view('organizer.create_event')->with('categories', $categories);
 }
 
@@ -133,25 +149,57 @@ public function validateEvent($id)
 {
     $event = Event::findOrFail($id);
     
-    // Update the 'validated' column to mark the event as validated
     $event->update(['validated' => 1]);
 
     return redirect()->back()->with('success', 'Event validated successfully!');
 }
 
 
-public function book(Request $request, Event $event)
+public function UnvalidateEvent($id)
 {
+    $event = Event::findOrFail($id);
+    
+    $event->update(['validated' => 0]);
 
-    $reservation = new EventReservation();
-    $reservation->user_id = auth()->id();
-    $reservation->event()->associate($event);
-    $reservation->save();
-
-    // Optionally, you can redirect the user or return a response
-    return redirect()->back()->with('success', 'Event booked successfully!');
+    return redirect()->back()->with('success', 'Event validated successfully!');
 }
 
+
+public function confirm($id)
+{
+    $event = Event::findOrFail($id);
+    return view('confirm', compact('event'));
+}
+
+
+public function book(Request $request, Event $event)
+{
+    if ($event->numberOfPlacesAvailable <= 0) {
+        return redirect()->back()->with('error', 'Sorry, there are no available seats for this event.');
+    }
+
+    $reservation = new EventReservation();
+    $reservation->event_id = $event->id;
+    $reservation->user_id = auth()->id();
+    $reservation->save();
+
+    $event->decrement('numberOfPlacesAvailable');
+
+    return redirect()->route('member.index')->with('success', 'Event confirmed successfully!');
+}
+
+public function search(Request $request)
+{
+
+    $event = event::where('validated',1);
+    $category = Category::all(); 
+    $query = $request->input('query');
+    $searchResults = Event::where('title', 'like', '%' . $query . '%')
+                        ->orWhere('description', 'like', '%' . $query . '%')
+                        ->get();
+
+    return view('statistic.search_results', compact('searchResults','category'));
+}
 
 
 }

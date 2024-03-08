@@ -8,6 +8,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\dashboardCntroller;
 use App\Http\Controllers\memberCntroller;
+use App\Http\Controllers\organizerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,13 +28,9 @@ Route::get('/', function () {
 Route::get('/dashboard', dashboardCntroller::class)->middleware(['auth', 'verified'])->name('dashboard');
 
 
-Route::get('/organizer/dashboard', function () {
-    return view('organizer.dashboard');
-})->middleware(['auth', 'role:organizer'])->name('organizer.dashboard');
 
 
-
-
+Route::resource('organizer', organizerController::class )->middleware(['auth', 'role:organizer']);
 
 Route::resource('member', memberCntroller::class )->middleware(['auth', 'role:member']);
 
@@ -44,9 +41,32 @@ Route::resource('admin', AdminController::class)->middleware(['auth', 'role:admi
 Route::resource('category', CategoryController::class)->middleware(['auth', 'role:admin']);
 
 
-Route::put('/event/{id}/validate', [EventController::class, 'validateEvent'])->name('event.validate')->middleware(['auth', 'role:admin']);
+Route::put('/event/{id}/validate', [EventController::class, 'validateEvent'])
+->name('event.validate')->middleware(['auth', 'role:admin']);
 
-Route::post('/events/{event}/book', [EventController::class, 'book'])->name('events.book')->middleware(['auth', 'role:member']);
+Route::put('/event/{id}/Unvalidate', [EventController::class, 'UnvalidateEvent'])
+->name('event.Unvalidate')->middleware(['auth', 'role:admin']);
+
+Route::get('/banned', [AdminController::class, 'banned'])->name('banned');
+
+
+Route::GET('/reserve/{id}/confirm', [EventController::class, 'confirm'])->name('reserve.confirm');
+Route::GET('event', [EventController::class, 'show_unvalidated'])->name('event.show_unvalidated');
+
+
+Route::GET('admins', [AdminController::class, 'getAllusers'])->name('admins.getAllusers');
+Route::post('/reserv/{event}/book', [EventController::class, 'book'])
+->name('reserv.book')->middleware(['auth', 'role:member']);
+
+
+Route::delete('/ban/{id}', [AdminController::class, 'ban'])->name('ban.ban');
+Route::put('/ban/{id}', [AdminController::class, 'unban'])->name('ban.unban');
+
+
+
+Route::get('/search', [EventController::class, 'search'])->name('search');
+
+
 
 
 

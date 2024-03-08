@@ -11,8 +11,13 @@ class category extends Model
 
     protected $fillable = ['name'];
 
-    public function events(){
+    public function event(){
 
         return $this->hasMany(event::class);
+    }
+
+    public function user(){
+
+        return $this->belongsTo(User::class);
     }
 }

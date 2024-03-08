@@ -36,69 +36,30 @@
                 </a>
             </ul>
         </div>
-
+        
         <!-- Main Content -->
         <div class="flex-1">
             <div class="py-12">
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-
-                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mb-6">
-                        <div class="p-6 text-gray-900 dark:text-gray-100">
-                            <h2 class="text-lg font-semibold mb-4">Statistics</h2>
-                            <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
-
-                                <div class="col-span-2 bg-indigo-100 dark:bg-indigo-700 rounded-md p-4 text-center">
-                                    <h3 class="text-xl font-semibold mb-2">Total Members</h3>
-                                    <p class="text-3xl font-bold">{{ $totalMembers }}</p>
-                                </div>
-
-                                <div class="col-span-2 bg-red-100 dark:bg-red-700 rounded-md p-4 text-center">
-                                    <h3 class="text-xl font-semibold mb-2">Total Organizers</h3>
-                                    <p class="text-3xl font-bold">{{ $totalOrganizers }}</p>
-                                </div>
-
-                                <div class="col-span-2 bg-green-100 dark:bg-green-700 rounded-md p-4 text-center">
-                                    <h3 class="text-xl font-semibold mb-2">Total Categories</h3>
-                                    <p class="text-3xl font-bold">{{ $totalCategories }}</p>
-                                </div>
-
-                                <div class="col-span-2 bg-yellow-100 dark:bg-yellow-700 rounded-md p-4 text-center">
-                                    <h3 class="text-xl font-semibold mb-2">Total Events</h3>
-                                    <p class="text-3xl font-bold">{{ $totalEvents }}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-
                     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                    
-                    <h2 class="text-xl text-white font-semibold m-5">Unvalidated Events ❓</h2>
-
+                        <!-- Table -->
                         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                            <h2 class="text-xl text-white font-semibold m-5">All Users 👥</h2>
+
                             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                     <tr>
                                         <th scope="col" class="px-6 py-3">
-                                            Event title
+                                            Id
                                         </th>
                                         <th scope="col" class="px-6 py-3">
-                                            Description
+                                            Name
                                         </th>
                                         <th scope="col" class="px-6 py-3">
-                                            Category
+                                           Emaile
                                         </th>
                                         <th scope="col" class="px-6 py-3">
-                                            Start Time
-                                        </th>
-                                        <th scope="col" class="px-6 py-3">
-                                            End Time
-                                        </th>
-                                        <th scope="col" class="px-6 py-3">
-                                            Location
-                                        </th>
-                                        <th scope="col" class="px-6 py-3">
-                                            Available places
+                                            Role
                                         </th>
                                         <th scope="col" class="px-6 py-3">
                                             Action
@@ -107,35 +68,34 @@
                                 </thead>
                              
                                 <tbody>
-                                    @foreach($events as $event)
+                                    @foreach($users as $user)
                                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            {{$event->title}}
+                                            {{$user->id}}
                                         </th>
                                         <td class="px-6 py-4">
-                                            {{$event->description}}
+                                            {{$user->name}}
                                         </td>
                                         <td class="px-6 py-4">
-                                            {{ $event->category->name}}
+                                            {{ $user->email}}
                                         </td>
                                         <td class="px-6 py-4">
-                                            {{ $event->start_time}}
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            {{ $event->end_time}}
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            {{ $event->location}}
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            {{ $event->numberOfPlacesAvailable }}
+                                            {{ $user->role}}
                                         </td>
                                         <td>
-                                            <form action="{{ route('event.validate', $event->id) }}" method="POST">
-                                                @csrf
-                                                @method('PUT')
-                                                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Validate</button>
-                                            </form>
+                                            @if($user->banned)
+                                                <form id="unbanForm{{ $user->id }}" action="{{ route('ban.unban', $user->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded unbanButton">✨ Unban</button>
+                                                </form>
+                                            @else
+                                                <form id="banForm{{ $user->id }}" action="{{ route('ban.ban', $user->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded banButton">☠ Ban</button>
+                                                </form>
+                                            @endif
                                         </td>
                                     </tr>
                                     @endforeach
@@ -148,3 +108,8 @@
         </div>
     </div>
 </x-app-layout>
+
+
+
+
+

@@ -15,3 +15,12 @@
         </div>
     </div>
 </x-app-layout>
+
+<p>No results found.</p>
+@else
+<ul>
+   
+        <li>{{ $result->title }}</li>
+    @endforeach
+</ul>
+@endif

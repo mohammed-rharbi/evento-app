@@ -12,68 +12,37 @@
             <ul class="flex-1 overflow-y-auto">
                 <a href="{{ route('admin.index') }}">
                     <li class="p-4 hover:bg-gray-700 flex items-center">
-                        📊 <!-- Dashboard Icon -->
+                        📊 
                         <span class="ml-2">Dashboard</span>
                     </li>
                 </a>
                 <a href="{{ route('admins.getAllusers') }}">
                     <li class="p-4 hover:bg-gray-700 flex items-center">
-                        👥 <!-- Users Icon -->
+                        👥 
                         <span class="ml-2">Users</span>
                     </li>
                 </a>
                 <a href="{{ route('category.index') }}">
                     <li class="p-4 hover:bg-gray-700 flex items-center">
-                        📁 <!-- Categories Icon -->
+                        📁 
                         <span class="ml-2">Categories</span>
                     </li>
                 </a>
                 <a href="{{ route('event.show_unvalidated') }}">
                     <li class="p-4 hover:bg-gray-700 flex items-center">
-                        📅 <!-- Validated Events Icon -->
+                        📅 
                         <span class="ml-2">Validated Events</span>
                     </li>
                 </a>
             </ul>
         </div>
-
         <!-- Main Content -->
         <div class="flex-1">
             <div class="py-12">
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-
-                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mb-6">
-                        <div class="p-6 text-gray-900 dark:text-gray-100">
-                            <h2 class="text-lg font-semibold mb-4">Statistics</h2>
-                            <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
-
-                                <div class="col-span-2 bg-indigo-100 dark:bg-indigo-700 rounded-md p-4 text-center">
-                                    <h3 class="text-xl font-semibold mb-2">Total Members</h3>
-                                    <p class="text-3xl font-bold">{{ $totalMembers }}</p>
-                                </div>
-
-                                <div class="col-span-2 bg-red-100 dark:bg-red-700 rounded-md p-4 text-center">
-                                    <h3 class="text-xl font-semibold mb-2">Total Organizers</h3>
-                                    <p class="text-3xl font-bold">{{ $totalOrganizers }}</p>
-                                </div>
-
-                                <div class="col-span-2 bg-green-100 dark:bg-green-700 rounded-md p-4 text-center">
-                                    <h3 class="text-xl font-semibold mb-2">Total Categories</h3>
-                                    <p class="text-3xl font-bold">{{ $totalCategories }}</p>
-                                </div>
-
-                                <div class="col-span-2 bg-yellow-100 dark:bg-yellow-700 rounded-md p-4 text-center">
-                                    <h3 class="text-xl font-semibold mb-2">Total Events</h3>
-                                    <p class="text-3xl font-bold">{{ $totalEvents }}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-
                     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                    
-                    <h2 class="text-xl text-white font-semibold m-5">Unvalidated Events ❓</h2>
+                        <!-- Table -->
+                        <h2 class="text-xl text-white font-semibold m-5">Validated Events ✅</h2>
 
                         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -131,10 +100,10 @@
                                             {{ $event->numberOfPlacesAvailable }}
                                         </td>
                                         <td>
-                                            <form action="{{ route('event.validate', $event->id) }}" method="POST">
+                                            <form action="{{ route('event.Unvalidate', $event->id) }}" method="POST">
                                                 @csrf
                                                 @method('PUT')
-                                                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Validate</button>
+                                                <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mr-5">Unvalidate</button>
                                             </form>
                                         </td>
                                     </tr>
@@ -148,3 +117,13 @@
         </div>
     </div>
 </x-app-layout>
+
+
+
+
+
+
+
+
+
+

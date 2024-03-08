@@ -4,7 +4,7 @@
 
 
 .home {
-    background-image: url('/public/images/dark-room-with-light-background.jpg');
+    background-image: url('/public/images/6037728.jpg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed; 
@@ -12,7 +12,14 @@
 
 
 .tnakt{
-    background-image: url('/public/images/dark-room-with-light-background.jpg');
+    background-image: url('/public/images/6037728.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; 
+}
+
+#well{
+    background-image: url('/public/images/6037728.jpg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed; 

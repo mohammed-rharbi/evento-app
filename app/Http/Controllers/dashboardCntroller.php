@@ -18,7 +18,7 @@ class dashboardCntroller extends Controller
                 break;
 
             case 'organizer':
-                return redirect()->route('organizer.dashboard');
+                return redirect()->route('organizer.index');
                 break;
 
             case 'member':
